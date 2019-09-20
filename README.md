@@ -228,7 +228,7 @@ If Swyft is handling the payment processing for your integration, after you auth
 //load previously stored payment method you wish to set as the default method
 let method = self.paymentMethods[indexPath.row]
 
-SwyftSdk.deletePaymentMethod(method: method, success: { response in
+SwyftSdk.deletePaymentMethod(deleteMethod: method, success: { response in
     //update list of payment methods
 
 }, failure: { error in
