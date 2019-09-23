@@ -176,7 +176,7 @@ cardHolderName: cardHolderName,
 cvv: cvv)
 
 SwyftSdk.addPaymentMethod(method: fullMethod,
-                       isDefault: isDefault, //Is used to set the payment method as the 'default' method. If this  
+                       isDefault: isDefault, //This is used to set the payment method as the 'default' method. If this  
                                              //is the first/only method for the user it is ALWAYS treated as true, 
                        success: { response in
   //store new method
