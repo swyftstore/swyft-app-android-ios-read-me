@@ -115,7 +115,6 @@ SwyftSdk.authenticateUser(swyftId: self.swyftId, qrCodeColor: self.view.tintColo
 }) { error in
   debugPrint(error)
 }
-}); 
 ``` 
 - Custom Generated QR Code
 ```swift
@@ -214,10 +213,10 @@ If Swyft is handling the payment processing for your integration, after you auth
 //load previously stored payment method you wish to set as the default method
 let method = self.paymentMethods[indexPath.row]
 SwyftSdk.setDefaultPaymentMethod(defaultMethod: method, success: { response in
-            //update ui to show new default method
-        }) { error in
-            print(error)
-        }
+    //update ui to show new default method
+}) { error in
+    print(error)
+}
 ```
 <a name="removePMethod"/>
 
@@ -231,9 +230,9 @@ let method = self.paymentMethods[indexPath.row]
 SwyftSdk.deletePaymentMethod(deleteMethod: method, success: { response in
     //update list of payment methods
 
-}, failure: { error in
+}) { error in
     print(error)
-})
+}
 ```
 
 <a name="webhooks"/>
