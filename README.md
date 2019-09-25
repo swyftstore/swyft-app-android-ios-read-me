@@ -247,6 +247,11 @@ Swyft offers a pair of webhooks that you can choose to integrate with along with
 
 Session Begins WebHook Payload
 ```javascript
+headers: {
+   Content-Type: "application/json",
+   ts: String, //epoch timestamp
+   signature: String//hmac security token
+}
 payload: {
   email_address:String,
   preauth_amount: String,
@@ -262,6 +267,12 @@ payload: {
 
 Session Ends WebHook Payload
 ```javascript
+headers: {
+   Content-Type: "application/json",
+   ts: String, //epoch timestamp
+   signature: String //hmac security token
+}
+
 payload: {
   email_address:String,
   products: Array,
