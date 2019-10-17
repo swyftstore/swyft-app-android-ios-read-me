@@ -9,8 +9,9 @@ This project is to be used by a 3rd party iOS application, inorder to integrate 
   - [Installation](#install)
 - [Usage](#usage)
   - [SDK Initilization](#init)
-  - [User Enrollment](#enroll)
+  - [User Enrollment](#enroll) 
   - [User Authentication](#auth)
+  - [User Update](#userUpdate)
   - [Get User Orders](#orders)
   - [Get User Payment Methods](#pMethods)
   - [Add User Payment Method](#addPMethod)
@@ -35,13 +36,8 @@ In order to use the SDK you need to request credentials by supplying swyft with 
 
 Sample plist entry
 ```xml
-<key>TERMINAL_ID</key>
-<string>00000001</string>
-<key>PAYMENT_SECRET</key>
-<string>fasfefveeveve23rf3vc3d232223344567898</string>
 <key>SWYFT_SDK_AUTH_KEY</key>
 <string>fasdfasfef3cevwe3qf3q4fewvq3f34tg4gv4v4v45v</string>
-
 ```
 <a name="install"/>
 
@@ -50,8 +46,15 @@ Sample plist entry
 To include the Swyft SDK in your project, add the following to your Podfile
 
 ```javascript
-# SwyftSdk
-  pod 'SwyftSdk', '~> 1'
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/swyftstore/swyft-app-ios-sdk-cocoa-pod.git'
+
+target 'YourAppName' do
+ # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  # SwyftSdk
+  pod 'SwyftSdk', '1.0.0-alpha'
+end  
 ```
 
 Note: we haven't decided if we want to publish our sdk to cocopods or distribute through more closed channels 
@@ -82,13 +85,13 @@ func application(_ application: UIApplication, didFinishLaunchingWithOptions lau
 
 ### Enroll User 
 
-The next is to enroll your applications user with Swyft. This is used to create a profile for your user on Swyft's Platform. The method returns a swyftId that is used to authenticate the user later on. If the user already exist the SDK blocks the creation of a duplicate user and returns the swyftId successfully.
+The next step is to enroll your applications user with Swyft. This is used to create a profile for your user on Swyft's Platform. The method returns a swyftId that is used to authenticate the user later on. If the user already exist the SDK blocks the creation of a duplicate user and returns the swyftId successfully.
 ```swift
 let user = SwyftUser(
     email: "user@swyftstore.com",
     firstName: "John",
     lastName: "Smith",
-    phoneNumber: "+1 1234567890")
+    phoneNumber: "+11234567890")
         
 SwyftSdk.enrollUser(user: user, success: { response in  
     //store swyftId for later usage
@@ -97,7 +100,8 @@ SwyftSdk.enrollUser(user: user, success: { response in
     debugPrint(error)        
 }
     
-```    
+```
+
 <a name="auth"/>
 
 ### User Authentication 
@@ -128,6 +132,26 @@ SwyftSdk.authenticateUser(swyftId: self.swyftId, qrCodeColor: self.view.tintColo
     debugPrint(error)
 }
 ```
+
+<a name="userUpdate"/>
+
+### Update User 
+
+After enrolling or authenticating a user you can update their profile. You will get an error if the new email is already in use.
+```swift
+let user = SwyftUser(
+    email: "user@swyftstore.com",
+    firstName: "John",
+    lastName: "Smith",
+    phoneNumber: "+11234567890")
+        
+SwyftSdk.updateUser(user: swyftUser, success: { (response) in  
+    debugPrint(response.message)
+}) { (error) in
+    debugPrint(error)
+}
+    
+```  
 
 <a name="orders"/>
 
